@@ -17,7 +17,7 @@ const CreateDate = styled.small`
   color: #999;
 `;
 
-export default function TodoItem(todo, onDelete, onToggle) {
+export default function TodoItem({ todo, onDelete, onToggle }) {
   return (
     <TodoItemContainer>
       <Checkbox checked={todo.completed} onChange={() => onToggle(todo.id)} />

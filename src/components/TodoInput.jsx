@@ -12,7 +12,7 @@ const TodoInputContainer = styled.div`
   }
 `;
 
-export default function TodoInput(onAddTodo) {
+export default function TodoInput({ onAddTodo }) {
   const [initialValue, setInitialValue] = useState("");
 
   const handleAdd = () => {
@@ -22,7 +22,7 @@ export default function TodoInput(onAddTodo) {
       id: Date.now(),
       text: initialValue,
       completed: false,
-      createAt: Date.now().toString(),
+      createAt: new Date().toLocaleString(),
     };
     onAddTodo(newTodo);
     setInitialValue("");

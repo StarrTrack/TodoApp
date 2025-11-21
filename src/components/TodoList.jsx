@@ -7,7 +7,7 @@ const EmptyState = styled.div`
   padding: 20px;
 `;
 
-export default function TodoList({ todos = [], onDeleteTodo, onToggleTodo }) {
+export default function TodoList({ todos, onDeleteTodo, onToggleTodo }) {
   return (
     <div>
       {todos.map((todo) => (
