@@ -2,11 +2,13 @@ import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import { Card } from "antd";
 import { useEffect, useState } from "react";
-import { getStorage, saveToStorage } from "./utils/localStorage.jsx";
+import { getStorage, saveToStorage } from "./utils/localStorage";
+import Filters from "./components/Filters.jsx";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     const savedTodos = getStorage("todos", []);
@@ -36,12 +38,19 @@ export default function App() {
     );
   };
 
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "active") return !todo.completed;
+    if (filter === "completed") return todo.completed;
+    return true;
+  });
+
   return (
     <div>
       <Card title="Moй Todo List">
+        <Filters currentFilter={filter} filterChange={setFilter} />
         <TodoInput onAddTodo={addTodo} />
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           onDeleteTodo={deleteTodo}
           onToggleTodo={toggleTodo}
         />
