@@ -6,6 +6,7 @@ import { getStorage, saveToStorage } from "./utils/localStorage";
 import Filters from "./components/Filters";
 import Counter from "./components/Counter";
 import styled from "styled-components";
+import Header from "./components/Header";
 
 const FilterCounter = styled.div`
   display: flex;
@@ -61,6 +62,7 @@ export default function App() {
 
   return (
     <div>
+      <Header />
       <Card title="Moй Todo List">
         <FilterCounter>
           <Filters currentFilter={filter} filterChange={setFilter} />
