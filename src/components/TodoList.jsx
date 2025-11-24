@@ -7,7 +7,12 @@ const EmptyState = styled.div`
   padding: 20px;
 `;
 
-export default function TodoList({ todos, onDeleteTodo, onToggleTodo }) {
+export default function TodoList({
+  todos,
+  onDeleteTodo,
+  onToggleTodo,
+  onEditTodo,
+}) {
   const sortedTodos = [...todos].sort((a, b) => {
     if (!a.completed && b.completed) return -1;
     if (a.completed && !b.completed) return 1;
@@ -22,6 +27,7 @@ export default function TodoList({ todos, onDeleteTodo, onToggleTodo }) {
           todo={todo}
           onDelete={onDeleteTodo}
           onToggle={onToggleTodo}
+          onEdit={onEditTodo}
         />
       ))}
 

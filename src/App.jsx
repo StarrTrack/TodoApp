@@ -4,7 +4,7 @@ import { Card } from "antd";
 import { useEffect, useState } from "react";
 import { getStorage, saveToStorage } from "./utils/localStorage";
 import Filters from "./components/Filters";
-import Counter from "./components/Counter.jsx";
+import Counter from "./components/Counter";
 import styled from "styled-components";
 
 const FilterCounter = styled.div`
@@ -45,6 +45,14 @@ export default function App() {
     );
   };
 
+  const editTodo = (id, newText) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, text: newText } : todo,
+      ),
+    );
+  };
+
   const filteredTodos = todos.filter((todo) => {
     if (filter === "active") return !todo.completed;
     if (filter === "completed") return todo.completed;
@@ -63,6 +71,7 @@ export default function App() {
           todos={filteredTodos}
           onDeleteTodo={deleteTodo}
           onToggleTodo={toggleTodo}
+          onEditTodo={editTodo}
         />
       </Card>
     </div>
