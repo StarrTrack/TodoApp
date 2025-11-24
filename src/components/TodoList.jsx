@@ -8,9 +8,15 @@ const EmptyState = styled.div`
 `;
 
 export default function TodoList({ todos, onDeleteTodo, onToggleTodo }) {
+  const sortedTodos = [...todos].sort((a, b) => {
+    if (!a.completed && b.completed) return -1;
+    if (a.completed && !b.completed) return 1;
+    return 0;
+  });
+
   return (
     <div>
-      {todos.map((todo) => (
+      {sortedTodos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}
