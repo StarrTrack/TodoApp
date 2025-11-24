@@ -3,7 +3,14 @@ import TodoList from "./components/TodoList";
 import { Card } from "antd";
 import { useEffect, useState } from "react";
 import { getStorage, saveToStorage } from "./utils/localStorage";
-import Filters from "./components/Filters.jsx";
+import Filters from "./components/Filters";
+import Counter from "./components/Counter.jsx";
+import styled from "styled-components";
+
+const FilterCounter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export default function App() {
   const [todos, setTodos] = useState([]);
@@ -47,7 +54,10 @@ export default function App() {
   return (
     <div>
       <Card title="Moй Todo List">
-        <Filters currentFilter={filter} filterChange={setFilter} />
+        <FilterCounter>
+          <Filters currentFilter={filter} filterChange={setFilter} />
+          <Counter todos={todos} />
+        </FilterCounter>
         <TodoInput onAddTodo={addTodo} />
         <TodoList
           todos={filteredTodos}
