@@ -18,10 +18,10 @@ export default function Counter({ todos }) {
           <Statistic title="Всего" value={total} />
         </Col>
         <Col span={2}>
-          <Statistic title="Активные" value={total - completed} />
+          <Statistic title="Осталось" value={total - completed} />
         </Col>
         <Col span={2}>
-          <Statistic title="Завершенные" value={completed} />
+          <Statistic title="Выполнено" value={completed} />
         </Col>
       </Row>
     </CounterContainer>

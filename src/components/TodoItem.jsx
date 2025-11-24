@@ -6,6 +6,7 @@ const TodoItemContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
+  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
 `;
 
 const TodoContent = styled.div`
@@ -19,7 +20,7 @@ const CreateDate = styled.small`
 
 export default function TodoItem({ todo, onDelete, onToggle }) {
   return (
-    <TodoItemContainer>
+    <TodoItemContainer completed={todo.completed}>
       <Checkbox checked={todo.completed} onChange={() => onToggle(todo.id)} />
       <TodoContent>
         <div>{todo.text}</div>
