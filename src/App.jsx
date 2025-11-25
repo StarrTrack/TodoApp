@@ -7,6 +7,7 @@ import Filters from "./components/Filters";
 import Counter from "./components/Counter";
 import styled from "styled-components";
 import Header from "./components/Header";
+import About from "./pages/About";
 
 const FilterCounter = styled.div`
   display: flex;
@@ -62,6 +63,7 @@ export default function App() {
 
   return (
     <div>
+      <About />
       <Header />
       <Card title="Moй Todo List">
         <FilterCounter>
