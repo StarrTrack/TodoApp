@@ -8,6 +8,7 @@ import Counter from "./components/Counter";
 import styled from "styled-components";
 import Header from "./components/Header";
 import About from "./pages/About";
+import HomePage from "./pages/HomePage.jsx";
 
 const FilterCounter = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ export default function App() {
 
   return (
     <div>
+      <HomePage />
       <About />
       <Header />
       <Card title="Moй Todo List">
