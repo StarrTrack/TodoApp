@@ -1,28 +1,22 @@
-import TodoInput from "./components/TodoInput";
-import TodoList from "./components/TodoList";
-import { Card } from "antd";
+import { ConfigProvider, theme } from "antd";
 import { useEffect, useState } from "react";
 import { getStorage, saveToStorage } from "./utils/localStorage";
-import Filters from "./components/Filters";
-import Counter from "./components/Counter";
-import styled from "styled-components";
 import Header from "./components/Header";
+import { Navigate, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 import About from "./pages/About";
-import HomePage from "./pages/HomePage.jsx";
-
-const FilterCounter = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [filter, setFilter] = useState("all");
+  const [currentTheme, setCurrentTheme] = useState("light");
 
   useEffect(() => {
     const savedTodos = getStorage("todos", []);
+    const savedTheme = getStorage("theme", "light");
     setTodos(savedTodos);
+    setCurrentTheme(savedTheme);
     setIsLoaded(true);
   }, []);
 
@@ -31,6 +25,12 @@ export default function App() {
       saveToStorage("todos", todos);
     }
   }, [todos, isLoaded]);
+
+  useEffect(() => {
+    if (isLoaded) {
+      saveToStorage("theme", currentTheme);
+    }
+  }, [currentTheme, isLoaded]);
 
   const addTodo = (newTodo) => {
     setTodos([newTodo, ...todos]);
@@ -56,30 +56,40 @@ export default function App() {
     );
   };
 
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === "active") return !todo.completed;
-    if (filter === "completed") return todo.completed;
-    return true;
-  });
+  const toggleTheme = (newTheme) => {
+    setCurrentTheme(newTheme);
+  };
 
   return (
-    <div>
-      <HomePage />
-      <About />
-      <Header />
-      <Card title="Moй Todo List">
-        <FilterCounter>
-          <Filters currentFilter={filter} filterChange={setFilter} />
-          <Counter todos={todos} />
-        </FilterCounter>
-        <TodoInput onAddTodo={addTodo} />
-        <TodoList
-          todos={filteredTodos}
-          onDeleteTodo={deleteTodo}
-          onToggleTodo={toggleTodo}
-          onEditTodo={editTodo}
-        />
-      </Card>
-    </div>
+    <ConfigProvider
+      theme={{
+        algorithm:
+          currentTheme === "dark"
+            ? theme.darkAlgorithm
+            : theme.defaultAlgorithm,
+      }}
+    >
+      <div>
+        <Header currentTheme={currentTheme} onThemeChange={toggleTheme} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                todos={todos}
+                addTodo={addTodo}
+                deleteTodo={deleteTodo}
+                toggleTodo={toggleTodo}
+                editTodo={editTodo}
+                filter={filter}
+                setFilter={setFilter}
+              />
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </ConfigProvider>
   );
 }

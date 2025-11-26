@@ -66,6 +66,15 @@ export default function About() {
             отработки React Router v6, где сделал 2 кнопки: главная страница и
             страница About
           </li>
+          <li>
+            <strong>Pages</strong> - нужно было убрать все лишнее в App и
+            сделать 2 страницы главная и About. Много времени ушло на главную
+            страницу и App
+          </li>
+          <li>
+            <strong>Тема светлая и темная</strong> - решил использовать
+            CustomTheme из библиотеке Ant Desing. Это было долго и сложно
+          </li>
         </ul>
       </p>
       <hr />
